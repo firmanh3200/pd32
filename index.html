@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Audit Pengendali Dokumen — Sistem Manajemen Mutu</title>
+  <title>Audit Pengendali Dokumen — SMM ISO 9001:2015</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,678 +11,444 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
-          },
-          colors: {
-            brand: { 50:'#f0fdf4',100:'#dcfce7',200:'#bbf7d0',300:'#86efac',400:'#4ade80',500:'#22c55e',600:'#16a34a',700:'#15803d',800:'#166534',900:'#14532d' }
-          }
-        }
-      }
+      theme: { extend: { fontFamily: { sans: ['Plus Jakarta Sans','Inter','system-ui','sans-serif'] }, colors: { brand:{50:'#f0fdf4',100:'#dcfce7',200:'#bbf7d0',300:'#86efac',400:'#4ade80',500:'#22c55e',600:'#16a34a',700:'#15803d',800:'#166534',900:'#14532d'} } } }
     }
   </script>
   <style>
-    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-    body { font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif; }
-    .sidebar-link.active { background: #16a34a; color: #fff !important; }
-    .sidebar-link.active span { color: #fff !important; }
-    .sidebar-link:not(.active):hover { background: #f0fdf4; color: #16a34a; }
-    .q-card { transition: all 0.2s ease; }
-    .q-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04); }
-    .link-btn { transition: all 0.15s ease; }
-    .link-btn:hover { transform: scale(1.04); }
-    .nav-pill { transition: all 0.2s ease; }
-    .nav-pill.active { background: #16a34a; color: #fff; box-shadow: 0 4px 12px rgba(22,163,74,0.3); }
-    .nav-pill:not(.active):hover { background: #f0fdf4; color: #16a34a; }
-    .section-header::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 4px; background: #16a34a; }
-    @keyframes fadeInUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-    .animate-in { animation: fadeInUp 0.4s ease forwards; }
-    .stat-card { backdrop-filter: blur(12px); background: rgba(255,255,255,0.85); }
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #a3a3a3; }
-    .mobile-nav-scroll { -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-    .mobile-nav-scroll::-webkit-scrollbar { display: none; }
-    @media (max-width: 1023px) { .sidebar-desktop { display: none !important; } }
-    @media (min-width: 1024px) { .mobile-nav-bar { display: none !important; } }
+    html{scroll-behavior:smooth;scroll-padding-top:80px}
+    body{font-family:'Plus Jakarta Sans','Inter',system-ui,sans-serif}
+    .sidebar-link.active{background:#16a34a;color:#fff!important}
+    .sidebar-link.active *{color:#fff!important}
+    .sidebar-link:not(.active):hover{background:#f0fdf4;color:#16a34a}
+    .q-card{transition:all .2s ease}
+    .q-card:hover{transform:translateY(-2px);box-shadow:0 10px 25px -5px rgba(0,0,0,.08),0 4px 6px -4px rgba(0,0,0,.04)}
+    .link-btn{transition:all .15s ease}
+    .link-btn:hover{transform:scale(1.04)}
+    .nav-pill{transition:all .2s ease}
+    .nav-pill.active{background:#16a34a;color:#fff;box-shadow:0 4px 12px rgba(22,163,74,.3)}
+    .nav-pill:not(.active):hover{background:#f0fdf4;color:#16a34a}
+    .clause-badge{font-size:10px;letter-spacing:.05em}
+    .evidence-toggle{cursor:pointer;user-select:none}
+    .evidence-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1)}
+    .evidence-body.open{max-height:600px}
+    .evidence-chevron{transition:transform .25s ease}
+    .evidence-chevron.rotated{transform:rotate(180deg)}
+    .search-highlight{background:#fef08a;padding:0 2px;border-radius:3px}
+    .stat-card{backdrop-filter:blur(12px);background:rgba(255,255,255,.85)}
+    ::-webkit-scrollbar{width:6px;height:6px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:3px}
+    ::-webkit-scrollbar-thumb:hover{background:#a3a3a3}
+    .mobile-nav-scroll{-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .mobile-nav-scroll::-webkit-scrollbar{display:none}
+    @media(max-width:1023px){.sidebar-desktop{display:none!important}}
+    @media(min-width:1024px){.mobile-nav-bar{display:none!important}}
+    .hidden-by-search{display:none!important}
   </style>
 </head>
 <body class="bg-neutral-50 text-neutral-900 antialiased">
 
-  <!-- ====== TOP HEADER ====== -->
+  <!-- HEADER -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-200/60">
     <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-brand-600 flex items-center justify-center shadow-sm">
-          <i data-lucide="file-check-2" class="w-5 h-5 text-white"></i>
-        </div>
+        <div class="w-9 h-9 rounded-xl bg-brand-600 flex items-center justify-center shadow-sm"><i data-lucide="file-check-2" class="w-5 h-5 text-white"></i></div>
         <div>
           <h1 class="text-sm sm:text-base font-bold text-neutral-900 leading-tight">Audit Pengendali Dokumen</h1>
-          <p class="text-[11px] text-neutral-500 hidden sm:block">Sistem Manajemen Mutu ISO 9001:2015</p>
+          <p class="text-[11px] text-neutral-500 hidden sm:block">SMM ISO 9001:2015 — Pelayanan Statistik Terpadu</p>
         </div>
       </div>
       <div class="flex items-center gap-2">
         <span class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-50 text-brand-700 text-xs font-semibold">
           <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
-          61 Pertanyaan · Semua Link Lengkap
+          61 Pertanyaan · 4 Klausul
         </span>
-        <button id="menuToggle" class="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg hover:bg-neutral-100 transition">
-          <i data-lucide="menu" class="w-5 h-5 text-neutral-600"></i>
-        </button>
+        <button id="menuToggle" class="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg hover:bg-neutral-100 transition"><i data-lucide="menu" class="w-5 h-5 text-neutral-600"></i></button>
       </div>
     </div>
   </header>
 
-  <!-- ====== MOBILE NAV BAR ====== -->
+  <!-- MOBILE NAV BAR -->
   <div class="mobile-nav-bar fixed top-16 left-0 right-0 z-40 bg-white/90 backdrop-blur-sm border-b border-neutral-200/60">
-    <div class="mobile-nav-scroll flex gap-2 px-4 py-2.5 overflow-x-auto">
-      <a href="#sec1" class="nav-pill flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 border border-neutral-200 whitespace-nowrap" data-sec="sec1">Konteks</a>
-      <a href="#sec2" class="nav-pill flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 border border-neutral-200 whitespace-nowrap" data-sec="sec2">Stakeholder</a>
-      <a href="#sec3" class="nav-pill flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 border border-neutral-200 whitespace-nowrap" data-sec="sec3">Lingkup</a>
-      <a href="#sec4" class="nav-pill flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 border border-neutral-200 whitespace-nowrap" data-sec="sec4">Proses Bisnis</a>
-      <a href="#sec5" class="nav-pill flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 border border-neutral-200 whitespace-nowrap" data-sec="sec5">Kepemimpinan</a>
-      <a href="#sec6" class="nav-pill flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 border border-neutral-200 whitespace-nowrap" data-sec="sec6">Kebijakan Mutu</a>
-      <a href="#sec7" class="nav-pill flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 border border-neutral-200 whitespace-nowrap" data-sec="sec7">Struktur Org</a>
-      <a href="#sec8" class="nav-pill flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 border border-neutral-200 whitespace-nowrap" data-sec="sec8">Dokumen</a>
-      <a href="#sec9" class="nav-pill flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 border border-neutral-200 whitespace-nowrap" data-sec="sec9">Monev</a>
-      <a href="#sec10" class="nav-pill flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 border border-neutral-200 whitespace-nowrap" data-sec="sec10">Audit Internal</a>
-      <a href="#sec11" class="nav-pill flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 border border-neutral-200 whitespace-nowrap" data-sec="sec11">Tinjauan Mgmt</a>
-    </div>
+    <div class="mobile-nav-scroll flex gap-2 px-4 py-2.5 overflow-x-auto" id="mobilePills"></div>
   </div>
 
-  <!-- ====== MOBILE SIDEBAR OVERLAY ====== -->
+  <!-- MOBILE SIDEBAR -->
   <div id="mobileOverlay" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden lg:hidden" onclick="closeMobileMenu()"></div>
   <aside id="mobileSidebar" class="fixed top-0 right-0 bottom-0 z-50 w-72 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 lg:hidden overflow-y-auto">
     <div class="p-4 border-b border-neutral-100 flex items-center justify-between">
-      <span class="text-sm font-bold text-neutral-800">Navigasi Bagian</span>
+      <span class="text-sm font-bold text-neutral-800">Navigasi Klausul</span>
       <button onclick="closeMobileMenu()" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-neutral-100"><i data-lucide="x" class="w-4 h-4"></i></button>
     </div>
     <nav id="mobileNavLinks" class="p-3 space-y-1"></nav>
   </aside>
 
-  <!-- ====== HERO ====== -->
+  <!-- HERO -->
   <section class="pt-28 sm:pt-32 pb-10 sm:pb-14 relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-brand-600 via-brand-700 to-brand-900"></div>
     <div class="absolute inset-0 opacity-10" style="background-image:url('data:image/svg+xml,<svg width=&quot;60&quot; height=&quot;60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;><circle cx=&quot;30&quot; cy=&quot;30&quot; r=&quot;1.5&quot; fill=&quot;white&quot;/></svg>');"></div>
     <div class="relative max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-sm text-white/90 text-xs font-semibold mb-5">
-          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
-          ISO 9001:2015 — Sistem Manajemen Mutu
-        </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight mb-4">
-          Audit Pengendali<br>Dokumen
-        </h2>
-        <p class="text-base sm:text-lg text-white/75 leading-relaxed max-w-xl mb-8">
-          Dokumentasi lengkap pertanyaan dan jawaban audit SMM meliputi konteks organisasi, kepemimpinan, perencanaan, hingga peningkatan berkelanjutan.
-        </p>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-sm text-white/90 text-xs font-semibold mb-5"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i>ISO 9001:2015 — Sistem Manajemen Mutu</div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight mb-4">Audit Pengendali<br>Dokumen</h2>
+        <p class="text-base sm:text-lg text-white/75 leading-relaxed max-w-xl mb-8">Dokumentasi lengkap pertanyaan, jawaban, dan contoh bukti dukung audit SMM Pelayanan Statistik Terpadu, dikelompokkan berdasarkan klausul ISO 9001:2015.</p>
       </div>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl">
-        <div class="stat-card rounded-2xl p-4 border border-white/10">
-          <div class="text-2xl sm:text-3xl font-bold text-white">11</div>
-          <div class="text-xs text-white/60 mt-1">Bagian Audit</div>
-        </div>
-        <div class="stat-card rounded-2xl p-4 border border-white/10">
-          <div class="text-2xl sm:text-3xl font-bold text-white">61</div>
-          <div class="text-xs text-white/60 mt-1">Pertanyaan</div>
-        </div>
-        <div class="stat-card rounded-2xl p-4 border border-white/10">
-          <div class="text-2xl sm:text-3xl font-bold text-white">61</div>
-          <div class="text-xs text-white/60 mt-1">Link Dokumen</div>
-        </div>
-        <div class="stat-card rounded-2xl p-4 border border-white/10">
-          <div class="text-2xl sm:text-3xl font-bold text-white flex items-center gap-1">✓</div>
-          <div class="text-xs text-white/60 mt-1">Semua Lengkap</div>
-        </div>
+        <div class="stat-card rounded-2xl p-4 border border-white/10"><div class="text-2xl sm:text-3xl font-bold text-white">4</div><div class="text-xs text-white/60 mt-1">Klausul ISO</div></div>
+        <div class="stat-card rounded-2xl p-4 border border-white/10"><div class="text-2xl sm:text-3xl font-bold text-white">11</div><div class="text-xs text-white/60 mt-1">Sub-Klausul</div></div>
+        <div class="stat-card rounded-2xl p-4 border border-white/10"><div class="text-2xl sm:text-3xl font-bold text-white">61</div><div class="text-xs text-white/60 mt-1">Pertanyaan</div></div>
+        <div class="stat-card rounded-2xl p-4 border border-white/10"><div class="text-2xl sm:text-3xl font-bold text-white flex items-center gap-1">✓</div><div class="text-xs text-white/60 mt-1">Semua Lengkap</div></div>
       </div>
     </div>
   </section>
 
-  <!-- ====== MAIN LAYOUT ====== -->
-  <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
-    <div class="flex gap-8">
-
-      <!-- ====== DESKTOP SIDEBAR ====== -->
-      <aside class="sidebar-desktop w-64 flex-shrink-0">
-        <div class="sticky top-24 space-y-1" id="desktopNav">
-          <p class="text-[11px] font-bold uppercase tracking-widest text-neutral-400 px-3 mb-3">Daftar Bagian</p>
+  <!-- SEARCH BAR -->
+  <div class="sticky top-16 z-30 bg-neutral-50/90 backdrop-blur-md border-b border-neutral-200/60 lg:top-16">
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="relative max-w-2xl">
+        <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none"></i>
+        <input id="searchInput" type="text" placeholder="Cari pertanyaan, klausul, atau kata kunci..." class="w-full pl-10 pr-20 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition">
+        <div id="searchInfo" class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+          <span id="searchCount" class="text-xs text-neutral-400 hidden"></span>
+          <button id="searchClear" class="hidden w-6 h-6 rounded-full bg-neutral-100 hover:bg-neutral-200 flex items-center justify-center transition" onclick="clearSearch()"><i data-lucide="x" class="w-3 h-3 text-neutral-500"></i></button>
         </div>
-      </aside>
-
-      <!-- ====== CONTENT ====== -->
-      <main class="flex-1 min-w-0 space-y-10 lg:space-y-14">
-
-        <!-- ==================== SECTION 1: KONTEKS ORGANISASI ==================== -->
-        <section id="sec1" class="scroll-mt-28">
-          <div class="section-header relative pl-5 mb-6">
-            <div class="flex items-center gap-3 mb-1">
-              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-brand-100 text-brand-700 text-sm font-bold">1</span>
-              <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Konteks Organisasi</h3>
-            </div>
-            <p class="text-sm text-neutral-500 ml-11">Isu Internal & Eksternal — 10 Pertanyaan</p>
-          </div>
-          <div class="space-y-3">
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-50 text-brand-600 text-xs font-bold flex items-center justify-center mt-0.5">1</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah Unit Kerja sudah mengidentifikasi isu internal dan eksternal? Jika iya, bagaimana relevansi isu internal dan eksternal dengan tujuan dan arah strategik?</p>
-                  <a href="https://docs.google.com/document/d/1SuosmQjFYhMVdBzpGkNMC7pTQUp6hZ0vY9VOYUVVD1c/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-50 text-brand-600 text-xs font-bold flex items-center justify-center mt-0.5">2</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-2">Apakah identifikasi isu telah mempertimbangkan:</p>
-                  <ul class="text-sm text-neutral-600 leading-relaxed mb-3 ml-4 space-y-1 list-disc">
-                    <li>Peraturan/kebijakan</li><li>Teknologi</li><li>Kebutuhan pengguna data</li><li>Anggaran</li><li>Koordinasi dengan unit kerja lain</li><li>Sumber Daya Manusia</li><li>Kondisi pandemi</li><li>Sarana dan prasarana pendukung (komputer, scanner, telepon layanan)</li>
-                  </ul>
-                  <p class="text-sm text-neutral-600 leading-relaxed mb-3">Dan bagaimana mekanisme dalam mengidentifikasi hal-hal tersebut?</p>
-                  <a href="https://docs.google.com/document/d/1xszoJA7VUMsF4KAdCGHusLDLOjQJpyZATtqMCPXbszc/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-50 text-brand-600 text-xs font-bold flex items-center justify-center mt-0.5">3</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah Unit Kerja telah menetapkan isu internal dan eksternal yang paling strategis pada tahun berjalan dan telah mempengaruhi sasaran mutu serta kinerja? Jika iya, bagaimana mekanisme pengelolaan isu tersebut?</p>
-                  <a href="https://docs.google.com/document/d/1SMJum0qwoh2JSO8m0TwlV1r5TM6-S1f_pqZ8h1zdmTA/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-50 text-brand-600 text-xs font-bold flex items-center justify-center mt-0.5">4</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah Unit Kerja sudah mengidentifikasi isu terkait perubahan iklim (<em>climate change</em>)? Jika iya, bagaimana mekanisme identifikasi tersebut?</p>
-                  <a href="https://docs.google.com/document/d/1v6unyMoGoO1Ekq0Drq2eICJSORt4deIcxZNy8fgOHxU/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-50 text-brand-600 text-xs font-bold flex items-center justify-center mt-0.5">5</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah Unit Kerja sudah mengidentifikasi isu terkait penerapan AI dan Digitalisasi? Jika iya, bagaimana mekanisme identifikasi tersebut?</p>
-                  <a href="https://docs.google.com/document/d/1jW9TASByFRhYbLpHKNq-Y3l8UKRj41douZAEFr3d2X4/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-50 text-brand-600 text-xs font-bold flex items-center justify-center mt-0.5">6</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah Unit Kerja sudah mengidentifikasi isu terkait fluktuasi harga minyak? Jika iya, bagaimana mekanisme identifikasi tersebut?</p>
-                  <a href="https://docs.google.com/document/d/1Mn6NP2bgl2AE_cdBXyF2vu8ZX-5jh6LJZdxa8-Cn4u8/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-50 text-brand-600 text-xs font-bold flex items-center justify-center mt-0.5">7</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah Unit Kerja sudah mengidentifikasi isu terkait resiliensi organisasi (krisis manajemen)? Jika iya, bagaimana mekanisme identifikasi tersebut?</p>
-                  <a href="https://docs.google.com/document/d/1jsrxeA-hWuTvNz1HtnFBNdg2trUZNEVsbwY-FMjM4Y4/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-50 text-brand-600 text-xs font-bold flex items-center justify-center mt-0.5">8</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah seluruh isu tersebut telah dipantau? Jika iya, bagaimana mekanisme pemantauannya?</p>
-                  <a href="https://docs.google.com/document/d/1DsCfxZFT-42Yiy3vQ1n0qaNcwlUmYiUeLmL2LOQ_bbo/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-50 text-brand-600 text-xs font-bold flex items-center justify-center mt-0.5">9</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah seluruh isu tersebut telah ditinjau kembali? Jika iya, bagaimana mekanisme peninjauannya?</p>
-                  <a href="https://docs.google.com/document/d/1Qk9_telvljFjfF9GfYWIYzkpF7yyQTRSqXx1qgZ9K3Y/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-50 text-brand-600 text-xs font-bold flex items-center justify-center mt-0.5">10</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah hasil identifikasi isu internal dan eksternal telah dijadikan pertimbangan untuk menentukan risiko dan peluang? Jika iya, bagaimana relevansi isu tersebut dengan risiko dan peluang?</p>
-                  <a href="https://docs.google.com/document/d/1EbavoqEEfMwvAfWLZf9kOaXhf7fhtCx1W3HlPMw9Bp0/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- ==================== SECTION 2: PIHAK BERKEPENTINGAN ==================== -->
-        <section id="sec2" class="scroll-mt-28">
-          <div class="section-header relative pl-5 mb-6">
-            <div class="flex items-center gap-3 mb-1">
-              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 text-blue-700 text-sm font-bold">2</span>
-              <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Kebutuhan & Harapan Pihak Berkepentingan</h3>
-            </div>
-            <p class="text-sm text-neutral-500 ml-11">Stakeholder Relevan — 6 Pertanyaan</p>
-          </div>
-          <div class="space-y-3">
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-blue-50 text-blue-600 text-xs font-bold flex items-center justify-center mt-0.5">1</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah Unit Kerja sudah mengidentifikasi dan menentukan pihak berkepentingan yang relevan dengan SMM (pengguna layanan, instansi/unit kerja BPS lain sbg mitra kerja unit kerja, pegawai, dll)? Jika iya, bagaimana mekanisme identifikasi tersebut?</p>
-                  <a href="https://docs.google.com/document/d/1ElA4z0nnGnZz6gflvT70P8KP7ppXeM1LAlxPvcEu3DU/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-blue-50 text-blue-600 text-xs font-bold flex items-center justify-center mt-0.5">2</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah hasil identifikasi tersebut telah memuat persyaratan pihak berkepentingan dalam SMM? Jika iya, bagaimana mekanisme identifikasi tersebut?</p>
-                  <a href="https://docs.google.com/document/d/1SEE4tdc2jn6upA6j75smbRqKZXcgwAeEUuJ9VzroMqM/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-blue-50 text-blue-600 text-xs font-bold flex items-center justify-center mt-0.5">3</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah hasil identifikasi tersebut telah digunakan sebagai dasar perencanaan SMM dan penetapan sasaran mutu? Jika iya, bagaimana relevansi identifikasi tersebut dengan perencanaan SMM dan penetapan sasaran mutu?</p>
-                  <a href="https://docs.google.com/document/d/1lTn_9XVLmdpgpjWfFY4zQ6s6W2qTDKeCLVJMd25jknI/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-blue-50 text-blue-600 text-xs font-bold flex items-center justify-center mt-0.5">4</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah kebutuhan dan harapan pengguna tersebut telah dipantau? Jika iya, bagaimana mekanisme pemantauan?</p>
-                  <a href="https://docs.google.com/document/d/1R1uN-FBFFIBjOma0Z6JUdTWGvDUlwyhxWCfrkGzmZKE/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-blue-50 text-blue-600 text-xs font-bold flex items-center justify-center mt-0.5">5</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah kebutuhan dan harapan pengguna tersebut telah ditinjau kembali? Jika iya, bagaimana mekanisme peninjauannya?</p>
-                  <a href="https://docs.google.com/document/d/1ksFABls1Olo3-ZkMRRhVxw1Ox_n2NKwlQ3uQkVKxV90/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5">
-              <div class="flex items-start gap-4">
-                <span class="flex-shrink-0 w-7 h-7 rounded-full bg-blue-50 text-blue-600 text-xs font-bold flex items-center justify-center mt-0.5">6</span>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah telah mengidentifikasi pihak berkepentingan paling signifikan, sejauh mana prioritas sumber daya diberikan untuk pemenuhan harapan pada stakeholder tersebut? Jika iya, bagaimana menjaga pihak berkepentingan tersebut?</p>
-                  <a href="https://docs.google.com/document/d/1XfvwH8hB8OLpAPPxrKp6p8rsy0FxiJQSIh2gkyCjcdk/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- ==================== SECTION 3: RUANG LINGKUP SMM ==================== -->
-        <section id="sec3" class="scroll-mt-28">
-          <div class="section-header relative pl-5 mb-6">
-            <div class="flex items-center gap-3 mb-1">
-              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-purple-100 text-purple-700 text-sm font-bold">3</span>
-              <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Ruang Lingkup SMM</h3>
-            </div>
-            <p class="text-sm text-neutral-500 ml-11">Penetapan & Kriteria — 5 Pertanyaan</p>
-          </div>
-          <div class="space-y-3">
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-purple-50 text-purple-600 text-xs font-bold flex items-center justify-center mt-0.5">1</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah unit kerja sudah menentukan lingkup SMM yang diterapkan? Jika iya, apa saja lingkup SMM tersebut?</p><a href="https://docs.google.com/document/d/14uOqMCK_tw1rQBqPQszj7PFShrdVEWfP6ifCReC2b7s/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-purple-50 text-purple-600 text-xs font-bold flex items-center justify-center mt-0.5">2</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah terdapat kriteria/dasar penetapan lingkup SMM tersebut? Jika iya, sebutkan kriterianya?</p><a href="https://docs.google.com/document/d/1F8nsJbP9v8EesY2GbGikhT_IdpiWhZuBY7pUthYDoNw/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-purple-50 text-purple-600 text-xs font-bold flex items-center justify-center mt-0.5">3</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah penetapan ruang lingkup SMM mempertimbangkan isu internal dan eksternal organisasi? Jika iya, bagaimana relevansi isu tersebut dengan penetapan ruang lingkup SMM?</p><a href="https://docs.google.com/document/d/1OZymWKbj5FoCjBOW_Qtst5bE-CAwkfQUYBkXxZBcvqU/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-purple-50 text-purple-600 text-xs font-bold flex items-center justify-center mt-0.5">4</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah penetapan ruang lingkup SMM mempertimbangkan persyaratan pihak berkepentingan yang relevan? Jika iya, bagaimana relevansi persyaratan pihak berkepentingan tersebut dengan penetapan ruang lingkup SMM?</p><a href="https://docs.google.com/document/d/1jAjnG9I_k4tknwpEVv_abjCvYYwc-MyJntoMRRQoYhA/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-purple-50 text-purple-600 text-xs font-bold flex items-center justify-center mt-0.5">5</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah penetapan ruang lingkup SMM mempertimbangkan produk dan jasa organisasi? Jika iya, bagaimana relevansi produk dan jasa organisasi tersebut dengan penetapan ruang lingkup SMM?</p><a href="https://docs.google.com/document/d/1_YGpgtM8XRnlVvxrnfsoeVObbUkCJjLdkcQqlG-iO1o/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-          </div>
-        </section>
-
-        <!-- ==================== SECTION 4: PROSES BISNIS SMM ==================== -->
-        <section id="sec4" class="scroll-mt-28">
-          <div class="section-header relative pl-5 mb-6">
-            <div class="flex items-center gap-3 mb-1">
-              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-orange-100 text-orange-700 text-sm font-bold">4</span>
-              <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Proses Bisnis SMM</h3>
-            </div>
-            <p class="text-sm text-neutral-500 ml-11">Penyusunan, Monev & Dokumentasi — 7 Pertanyaan</p>
-          </div>
-          <div class="space-y-3">
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-orange-50 text-orange-600 text-xs font-bold flex items-center justify-center mt-0.5">1</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah Unit Kerja sudah menetapkan proses bisnis SMM? Jika iya, bagaimana mekanisme penyusunan proses bisnis tersebut?</p><a href="https://docs.google.com/document/d/1s14RJBnaEvwU8WZZgZVevcEWDFZtAJaduFTTANb2ef4/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-orange-50 text-orange-600 text-xs font-bold flex items-center justify-center mt-0.5">2</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-2">Apakah dokumen proses bisnis SMM telah mencakup:</p><ul class="text-sm text-neutral-600 mb-3 ml-4 space-y-1 list-disc"><li>Penetapan masukan dan keluaran</li><li>Urutan dan interaksi proses</li></ul><a href="https://docs.google.com/document/d/1YYeOhQUJDTqtPMVbU_qv4saatzAUfq9cG1d7PwMdTQI/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-orange-50 text-orange-600 text-xs font-bold flex items-center justify-center mt-0.5">3</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-2">Apakah telah terdapat mekanisme terkait:</p><ul class="text-sm text-neutral-600 mb-3 ml-4 space-y-1 list-disc"><li>Kriteria dan metode pengukuran kinerja</li><li>Kebutuhan sumber daya (SDM dan anggaran)</li><li>Penetapan tanggung jawab dan wewenang pada setiap proses</li><li>Pengelolaan risiko dan peluang</li></ul><a href="https://docs.google.com/document/d/1HASVMxnRFKLsPvucpgf5ncF1JmUY7-vpQoUgvv-OYiA/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-orange-50 text-orange-600 text-xs font-bold flex items-center justify-center mt-0.5">4</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah Unit kerja telah menyusun mekanisme monitoring dan evaluasi SMM? Jika iya, bagaimana mekanismenya?</p><a href="https://docs.google.com/document/d/1OctQtq7DBwoUo9bChk8ZQO7Z9eIQbFF23DwcfzJM9CU/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-orange-50 text-orange-600 text-xs font-bold flex items-center justify-center mt-0.5">5</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah Unit Kerja telah menindaklanjuti hasil monev untuk meningkatkan SMM? Jika iya, hal apa saja yang sudah ditindaklanjuti dan bukti pendukungnya?</p><a href="https://docs.google.com/document/d/1lMcGqjyU_WtDZ-7Lru9SY4G-PW530K9LoIT6WAns1Ms/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-orange-50 text-orange-600 text-xs font-bold flex items-center justify-center mt-0.5">6</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah terdapat informasi terdokumentasi untuk mendukung operasi SMM dan sarana penyimpanannya?</p><a href="https://docs.google.com/document/d/1ttQz295FH09D7Jd2YQk4IkomtKZg7ZyhLEDUU91y9xM/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-orange-50 text-orange-600 text-xs font-bold flex items-center justify-center mt-0.5">7</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah terdapat sistem informasi sebagai sarana penyimpanan?</p><a href="https://docs.google.com/document/d/1Vzi1QyIXH8Dxkomu8zl95vHvV0ojyJyNnFNjzy3IJ2I/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-          </div>
-        </section>
-
-        <!-- ==================== SECTION 5: KEPEMIMPINAN ==================== -->
-        <section id="sec5" class="scroll-mt-28">
-          <div class="section-header relative pl-5 mb-6">
-            <div class="flex items-center gap-3 mb-1">
-              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-rose-100 text-rose-700 text-sm font-bold">5</span>
-              <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Kepemimpinan</h3>
-            </div>
-            <p class="text-sm text-neutral-500 ml-11">Komitmen, Dukungan & Integrasi — 11 Pertanyaan</p>
-          </div>
-          <div class="space-y-3">
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-50 text-rose-600 text-xs font-bold flex items-center justify-center mt-0.5">1</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah telah dapat dipastikan bahwa kebijakan dan sasaran mutu selaras dengan visi, misi, tujuan, dan arah strategis organisasi? Jika iya, bagaimana keselarasan kebijakan dan sasaran mutu dengan visi, misi, tujuan, dan arah strategis organisasi?</p><a href="https://docs.google.com/document/d/18tYv6rbd9BX2BDTy1CWcnVnPhLnFp6nLavLIT5iSX64/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-50 text-rose-600 text-xs font-bold flex items-center justify-center mt-0.5">2</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah telah dapat dipastikan bahwa persyaratan SMM terintegrasi ke dalam proses bisnis organisasi? Jika iya, bagaimana integrasi tersebut?</p><a href="https://docs.google.com/document/d/1kI83v_cQnB72IArR6cfnHOJJa7k9cZKd3vxeQMz0y94/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-50 text-rose-600 text-xs font-bold flex items-center justify-center mt-0.5">3</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah telah dapat dipastikan ketersediaan sumber daya yang memadai untuk penerapan dan pemeliharaan SMM? Jika iya, bagaimana pengelolaan sumber daya untuk penerapan dan pemeliharaan SMM?</p><a href="https://docs.google.com/document/d/1VzKSAKfbKYeNr7Cu-h0ShPgwrFtbNXwIjp3Jb7n-u2M/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-50 text-rose-600 text-xs font-bold flex items-center justify-center mt-0.5">4</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah telah dapat dipastikan bahwa SDM didorong untuk menerapkan pendekatan proses dan pemikiran berbasis risiko dalam pelaksanaan pekerjaan (membangun budaya sadar risiko)? Jika iya, bagaimana mekanisme untuk menerapkan hal tersebut?</p><a href="https://docs.google.com/document/d/1rPQ3_rPZd-PUmd2l4MAyBBS3jfLHTDhnSgeW-NUUzBE/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-50 text-rose-600 text-xs font-bold flex items-center justify-center mt-0.5">5</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah telah dapat dipastikan bahwa penerapan SMM yang efektif dan sesuai persyaratan telah aktif dikomunikasikan kepada seluruh SDM? Jika iya, bagaimana mekanisme/sarana komunikasi tersebut?</p><a href="https://docs.google.com/document/d/17F4kdooC66V0jfnYkX88G_-3gQyRsyKECh6faBXfHjw/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-50 text-rose-600 text-xs font-bold flex items-center justify-center mt-0.5">6</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah telah dapat dipastikan bahwa SMM mampu mencapai hasil yang telah ditetapkan? Jika iya, bagaimana strategi yang diterapkan?</p><a href="https://docs.google.com/document/d/1mjyUgS9v2FpfdTfu_4NCjkjLvwHdlPvi3_2FqZGG364/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-50 text-rose-600 text-xs font-bold flex items-center justify-center mt-0.5">7</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah telah dapat dipastikan bahwa terdapat pengarahan dan dukungan SDM agar berkontribusi terhadap efektivitas SMM? Jika iya, bagaimana mekanisme yang dibangun agar SDM berkontribusi dalam efektivitas SMM?</p><a href="https://docs.google.com/document/d/1bIWcsC9esg7WsMmBNLaAmPFPrVnYRrqSxE9NTRthPK4/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-50 text-rose-600 text-xs font-bold flex items-center justify-center mt-0.5">8</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah telah terdapat dukungan manajemen terkait (koordinator dan unit pendukung) dalam menjalankan peran kepemimpinan sesuai tanggung jawabnya masing-masing? Jika iya, bagaimana mekanisme yang diterapkan?</p><a href="https://docs.google.com/document/d/11sSkIfDdR639pV9meGRQXnl6uW5Mk-jbI8snRgJhfAs/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-50 text-rose-600 text-xs font-bold flex items-center justify-center mt-0.5">9</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah pernyataan komitmen telah mencakup upaya pemenuhan kebutuhan dan harapan pengguna sesuai dengan peraturan perundang-undangan yang berlaku?</p><a href="https://docs.google.com/document/d/1-FizdKKWfLyZOdInKM1vanO_XbbkFMVKTc43x8yGUWA/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-50 text-rose-600 text-xs font-bold flex items-center justify-center mt-0.5">10</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah pernyataan komitmen telah mencakup penetapan serta pengelolaan risiko dan peluang terkait kebutuhan dan harapan pengguna layanan?</p><a href="https://docs.google.com/document/d/1TKD_beqfvEI91_O2Bac1fos6ycIzXB69G21bOF0z5hs/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-50 text-rose-600 text-xs font-bold flex items-center justify-center mt-0.5">11</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah pernyataan komitmen telah mencakup komitmen untuk meningkatkan kepuasan pengguna layanan secara berkelanjutan?</p><a href="https://docs.google.com/document/d/1QkZACzeReBxP3kZHXRQtZHXkP6WeZ1Bu1jUmf_x8ATQ/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-          </div>
-        </section>
-
-        <!-- ==================== SECTION 6: KEBIJAKAN MUTU ==================== -->
-        <section id="sec6" class="scroll-mt-28">
-          <div class="section-header relative pl-5 mb-6">
-            <div class="flex items-center gap-3 mb-1">
-              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-cyan-100 text-cyan-700 text-sm font-bold">6</span>
-              <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Kebijakan Mutu</h3>
-            </div>
-            <p class="text-sm text-neutral-500 ml-11">Penetapan, Dokumentasi & Komunikasi — 5 Pertanyaan</p>
-          </div>
-          <div class="space-y-3">
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-cyan-50 text-cyan-600 text-xs font-bold flex items-center justify-center mt-0.5">1</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah telah terdapat penetapan kebijakan mutu? Jika iya, dalam bentuk apa kebijakan mutu disusun (maklumat pelayanan)?</p><a href="https://docs.google.com/document/d/1GG51jWSKhTwP5uwWprxorWMmiVBEn6xyVha0xIxx_QA/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-cyan-50 text-cyan-600 text-xs font-bold flex items-center justify-center mt-0.5">2</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-2">Apakah kebijakan mutu tersebut telah:</p><ul class="text-sm text-neutral-600 mb-3 ml-4 space-y-1 list-disc"><li>Selaras dengan visi, misi, tujuan dan arah strategi</li><li>Menyediakan kerangka kerja untuk menetapkan sasaran mutu</li><li>Mendorong komitmen berbagai pihak untuk melaksanakan kebijakan mutu/memenuhi persyaratan yang berlaku</li><li>Meningkatkan SMM secara berkala (ada reviu kebijakan mutu)</li></ul><p class="text-sm text-neutral-600 leading-relaxed mb-3">Jika iya, jelaskan substansi kebijakan mutu yang terkait dengan hal-hal tersebut?</p><a href="https://docs.google.com/document/d/1fLAaBIE2K69iMJufWmLYSzhGtiaYrB8vmIxHN1jISBo/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-cyan-50 text-cyan-600 text-xs font-bold flex items-center justify-center mt-0.5">3</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah kebijakan mutu telah didokumentasikan? Jika iya, apa bentuk dan media yang digunakan dalam mendokumentasikan kebijakan mutu tersebut?</p><a href="https://docs.google.com/document/d/1jAXj0bjdQ0ysmkTEKWKmAW3DvK40VLI27ft8zujS80M/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-cyan-50 text-cyan-600 text-xs font-bold flex items-center justify-center mt-0.5">4</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah kebijakan mutu dikomunikasikan kepada pihak internal yang berkepentingan? Jika iya, apa bentuk dan media yang digunakan dalam mengkomunikasikan kebijakan mutu tersebut?</p><a href="https://docs.google.com/document/d/1c69kpBfWGyAm56lvR-k2RrEJv3nw-OEcGN6m8v8mQ_s/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-cyan-50 text-cyan-600 text-xs font-bold flex items-center justify-center mt-0.5">5</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah kebijakan mutu dikomunikasikan kepada pihak eksternal yang berkepentingan? Jika iya, apa bentuk dan media yang digunakan dalam mengkomunikasikan kebijakan mutu tersebut?</p><a href="https://docs.google.com/document/d/1Oty3SMxkCv4RwQyDSQpRSX-N3__W-c7_gW029P5wktE/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-          </div>
-        </section>
-
-        <!-- ==================== SECTION 7: STRUKTUR ORGANISASI ==================== -->
-        <section id="sec7" class="scroll-mt-28">
-          <div class="section-header relative pl-5 mb-6">
-            <div class="flex items-center gap-3 mb-1">
-              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-amber-100 text-amber-700 text-sm font-bold">7</span>
-              <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Struktur Organisasi SMM</h3>
-            </div>
-            <p class="text-sm text-neutral-500 ml-11">Penetapan Peran & Wewenang — 4 Pertanyaan</p>
-          </div>
-          <div class="space-y-3">
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-amber-50 text-amber-600 text-xs font-bold flex items-center justify-center mt-0.5">1</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah terdapat struktur organisasi dalam penerapan SMM? Jika iya, bagaimana struktur organisasinya?</p><a href="https://docs.google.com/document/d/1SUe-Zlv2BvPJoHC52DdMwf-WCVhMClcsGhfxt2gl76k/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-amber-50 text-amber-600 text-xs font-bold flex items-center justify-center mt-0.5">2</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah telah terdapat penetapan pegawai dalam penerapan SMM dan mendelegasikan peran tanggung jawab, dan wewenang? Jika iya, bagaimana mekanisme hal tersebut dikomunikasikan dan dipahami oleh unit kerja?</p><a href="https://docs.google.com/document/d/1tKw0Fd4rABTRPGuuf8og5gMhLHqSexbY3wSVgIckdvc/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-amber-50 text-amber-600 text-xs font-bold flex items-center justify-center mt-0.5">3</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah terdapat mekanisme pemilihan pegawai tersebut? Jika iya, bagaimana mekanisme pemilihannya?</p><a href="https://docs.google.com/document/d/1krCjXjOBJR02yXEOZUhvremWbv2vRH9TDFnCJCXWPZ0/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-amber-50 text-amber-600 text-xs font-bold flex items-center justify-center mt-0.5">4</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-2">Apakah dokumen penetapan telah memuat peran, tanggung jawab, dan wewenang sbb:</p><ul class="text-sm text-neutral-600 mb-3 ml-4 space-y-1 list-disc"><li>Memastikan bahwa SMM telah memenuhi persyaratan standar ISO 9001:2015</li><li>Memastikan bahwa penerapan SMM sudah menghasilkan keluaran sesuai dengan target</li><li>Melaporkan dan mengevaluasi kinerja penerapan SMM</li><li>Menindaklanjuti hasil evaluasi sebagai upaya peningkatan kualitas SMM</li><li>Melakukan dan memastikan bahwa promosi perubahan SMM sebagai upaya peningkatan kualitas benar-benar difokuskan pada pengguna layanan</li><li>Memastikan keutuhan SMM terus terpelihara walaupun terjadi perubahan pada SMM</li></ul><p class="text-sm text-neutral-600 leading-relaxed mb-3">Jika iya, bagaimana mekanisme yang diterapkan untuk memenuhi hal-hal tersebut?</p><a href="https://docs.google.com/document/d/1XSFKMRnFxYyTW6AzgXlLayNbb3SBPURwiZyRPvqCZpg/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-          </div>
-        </section>
-
-        <!-- ==================== SECTION 8: PENGELOLAAN DOKUMEN ==================== -->
-        <section id="sec8" class="scroll-mt-28">
-          <div class="section-header relative pl-5 mb-6">
-            <div class="flex items-center gap-3 mb-1">
-              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 text-sm font-bold">8</span>
-              <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Pengelolaan Informasi & Dokumen</h3>
-            </div>
-            <p class="text-sm text-neutral-500 ml-11">Pedoman, Penyimpanan & Pengamanan — 2 Pertanyaan</p>
-          </div>
-          <div class="space-y-3">
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold flex items-center justify-center mt-0.5">1</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah terdapat pedoman/prosedur mengenai pengelolaan informasi/dokumen yang sudah disahkan? Jika iya, apakah telah mencakup penjelasan mengenai identifikasi dan deskripsi, format, dan tinjauan dan pengesahan?</p><a href="https://docs.google.com/document/d/1NNBwf6UO_NNjIM12txMs9mqB8aG8sMH3_CoEoK0e7Go/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold flex items-center justify-center mt-0.5">2</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-2">Apakah pedoman/prosedur tersebut telah mengatur hal-hal sebagai berikut:</p><ul class="text-sm text-neutral-600 mb-3 ml-4 space-y-1 list-disc"><li>Cara penyimpanan dokumen</li><li>Langkah pengamanan terhadap lokasi/media penyimpanan dokumen</li><li>Proses/langkah untuk dapat mengakses informasi/dokumen</li><li>Ketentuan mengenai masa retensi dokumen</li><li>Langkah yang dilakukan jika terdapat dokumen yang telah mencapai masa retensi</li><li>Cara untuk melakukan kontrol terhadap perubahan dokumen</li><li>Proses distribusi dan/atau pemberian akses terhadap dokumen kepada pihak yang membutuhkan (pengunjung PST)</li><li>Lokasi penyimpanan dokumen terkait dengan langkah pengamanannya</li><li>Kemudahan akses dokumen ketika dibutuhkan oleh pihak yang memiliki wewenang, dengan cara sesuai dengan ketentuan yang berlaku</li></ul><a href="https://docs.google.com/document/d/1xRTA1h1tn0gnA-FLFRfyGtH_0FDen-gRJMaWp2SUUgI/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-          </div>
-        </section>
-
-        <!-- ==================== SECTION 9: MONITORING & EVALUASI ==================== -->
-        <section id="sec9" class="scroll-mt-28">
-          <div class="section-header relative pl-5 mb-6">
-            <div class="flex items-center gap-3 mb-1">
-              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-teal-100 text-teal-700 text-sm font-bold">9</span>
-              <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Pemantauan, Pengukuran, Analisis & Evaluasi</h3>
-            </div>
-            <p class="text-sm text-neutral-500 ml-11">Metode, Hasil & Tindak Lanjut — 5 Pertanyaan</p>
-          </div>
-          <div class="space-y-3">
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-teal-50 text-teal-600 text-xs font-bold flex items-center justify-center mt-0.5">1</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah telah dilakukan pemantauan, pengukuran, analisis, dan evaluasi layanan terhadap pencapaian SMM? Jika Ya, bagaimana metodenya dan kapan waktu pelaksanaannya?</p><a href="https://docs.google.com/document/d/1aj1iXOKLZbGqsWU-B44C4ZFRYDg6yx9xMJyZrgKwpMU/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-teal-50 text-teal-600 text-xs font-bold flex items-center justify-center mt-0.5">2</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-2">Apakah hasil evaluasi telah menjadi bahan perbaikan untuk:</p><ul class="text-sm text-neutral-600 mb-3 ml-4 space-y-1 list-disc"><li>Kesesuaian terhadap persyaratan</li><li>Tingkat kepuasan pelanggan</li><li>Kinerja dan keefektifan sistem manajemen mutu</li><li>Jika perencanaan telah diterapkan dengan efektif</li><li>Keefektifan tindakan yang diambil ditujukan pada risiko dan peluang</li><li>Keperluan untuk peningkatan pada sistem manajemen mutu</li></ul><a href="https://docs.google.com/document/d/1BPnnouL-M06274HWDeI3P-CQ01Ub7Gz33mxVfy18HkQ/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-teal-50 text-teal-600 text-xs font-bold flex items-center justify-center mt-0.5">3</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah proses pemantauan, pengukuran, analisis dan evaluasi telah didokumentasikan?</p><a href="https://docs.google.com/document/d/10ZdXS2oK8MszQgiEk_4ZTINgMQDUscd6P3gHI_vNcWk/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-teal-50 text-teal-600 text-xs font-bold flex items-center justify-center mt-0.5">4</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah tindak lanjut hasil evaluasi yang telah dilakukan dan didokumentasikan?</p><a href="https://docs.google.com/document/d/1ZmOP8ho15GKxCMNfXLVWmj1XbPubbelRG-E-TctY-HY/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-teal-50 text-teal-600 text-xs font-bold flex items-center justify-center mt-0.5">5</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah laporan hasil monitoring disampaikan kepada pimpinan secara berkala?</p><a href="https://docs.google.com/document/d/17c8ZDffnnWIajyRrS3sAUtVRfTuXuTXbdNuh1_f0D-0/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-          </div>
-        </section>
-
-        <!-- ==================== SECTION 10: AUDIT INTERNAL ==================== -->
-        <section id="sec10" class="scroll-mt-28">
-          <div class="section-header relative pl-5 mb-6">
-            <div class="flex items-center gap-3 mb-1">
-              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-pink-100 text-pink-700 text-sm font-bold">10</span>
-              <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Audit Internal</h3>
-            </div>
-            <p class="text-sm text-neutral-500 ml-11">Mekanisme & Pelaksanaan — 2 Pertanyaan</p>
-          </div>
-          <div class="space-y-3">
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-pink-50 text-pink-600 text-xs font-bold flex items-center justify-center mt-0.5">1</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah pimpinan telah menetapkan mekanisme audit internal dan mengevaluasi pelaksanaan audit internal?</p><a href="https://docs.google.com/document/d/1VcJ-sGobGqbkRajYzvW0oEiyvJ9FOAFSYQCeki3LNpQ/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-pink-50 text-pink-600 text-xs font-bold flex items-center justify-center mt-0.5">2</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah audit internal telah dilaksanakan secara terencana, oleh auditor yang kompeten dan independen, didokumentasikan dengan baik, serta ditindaklanjuti secara efektif untuk perbaikan layanan?</p><a href="https://docs.google.com/document/d/1UrQZEw0hQS0o5Awacddiiy8r47155-Gbo3M-cWs-WT8/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-          </div>
-        </section>
-
-        <!-- ==================== SECTION 11: TINJAUAN MANAJEMEN ==================== -->
-        <section id="sec11" class="scroll-mt-28">
-          <div class="section-header relative pl-5 mb-6">
-            <div class="flex items-center gap-3 mb-1">
-              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 text-sm font-bold">11</span>
-              <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">Tinjauan Manajemen</h3>
-            </div>
-            <p class="text-sm text-neutral-500 ml-11">Peninjauan, Keputusan & Dokumentasi — 4 Pertanyaan</p>
-          </div>
-          <div class="space-y-3">
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-emerald-50 text-emerald-600 text-xs font-bold flex items-center justify-center mt-0.5">1</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah pimpinan telah melakukan peninjauan Sistem Manajemen Mutu Organisasi melalui Tinjauan Manajemen secara berkala?</p><a href="https://docs.google.com/document/d/1pYdAyfBb_eq-zrXMBoQhL5_b_rda1JHGB54R7VaDVDY/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-emerald-50 text-emerald-600 text-xs font-bold flex items-center justify-center mt-0.5">2</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-2">Apakah tinjauan manajemen yang dilaksanakan telah mempertimbangkan:</p><ul class="text-sm text-neutral-600 mb-3 ml-4 space-y-1 list-disc"><li>Status tindakan dari Tinjauan Manajemen terdahulu</li><li>Perubahan isu internal dan eksternal</li><li>Informasi kinerja dan keefektifan SMM</li><li>Kecukupan sumber daya</li><li>Keefektifan RTP yang dilakukan terkait peluang dan risiko</li><li>Peluang peningkatan</li></ul><a href="https://docs.google.com/document/d/1zxdd1wlIY1BV_9AtGKHDqSvtUFgPdxxqLuI9TUPohnI/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-emerald-50 text-emerald-600 text-xs font-bold flex items-center justify-center mt-0.5">3</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah tinjauan manajemen yang dilaksanakan telah meliputi keputusan dan tindakan terkait peluang peningkatan, keperluan perubahan, kebutuhan sumber daya?</p><a href="https://docs.google.com/document/d/1yb12rkktufIgecV5tvI5KWZWB9jRNyeijgQhC6mkPi0/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-            <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5"><div class="flex items-start gap-4"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-emerald-50 text-emerald-600 text-xs font-bold flex items-center justify-center mt-0.5">4</span><div class="flex-1"><p class="text-sm text-neutral-800 leading-relaxed mb-3">Apakah terdapat dokumentasi rapat tinjauan manajemen?</p><a href="https://docs.google.com/document/d/1n0qdFN1KD1ldZE3BiefReCNbc1OZRMZIXAsl8PLxCf4/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Jawaban</a></div></div></div>
-
-          </div>
-        </section>
-
-        <!-- ====== FOOTER ====== -->
-        <footer class="mt-16 pt-8 border-t border-neutral-200">
-          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
-                <i data-lucide="file-check-2" class="w-4 h-4 text-white"></i>
-              </div>
-              <div>
-                <p class="text-sm font-semibold text-neutral-800">Audit Pengendali Dokumen</p>
-                <p class="text-xs text-neutral-500">Sistem Manajemen Mutu ISO 9001:2015</p>
-              </div>
-            </div>
-            <div class="flex items-center gap-4 text-xs text-neutral-400">
-              <span class="inline-flex items-center gap-1.5"><i data-lucide="list-checks" class="w-3.5 h-3.5"></i> 61 Pertanyaan</span>
-              <span class="inline-flex items-center gap-1.5"><i data-lucide="layers" class="w-3.5 h-3.5"></i> 11 Bagian</span>
-              <span class="inline-flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-brand-500"></i> Semua Link Lengkap</span>
-            </div>
-          </div>
-        </footer>
-
-      </main>
+      </div>
     </div>
   </div>
 
-  <!-- ====== BACK TO TOP ====== -->
-  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-brand-600 text-white shadow-lg flex items-center justify-center hover:bg-brand-700 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none">
-    <i data-lucide="arrow-up" class="w-5 h-5"></i>
-  </button>
+  <!-- MAIN LAYOUT -->
+  <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+    <div class="flex gap-8">
+      <aside class="sidebar-desktop w-64 flex-shrink-0">
+        <div class="sticky top-36 space-y-1" id="desktopNav">
+          <p class="text-[11px] font-bold uppercase tracking-widest text-neutral-400 px-3 mb-3">Klausul ISO</p>
+        </div>
+      </aside>
+      <main class="flex-1 min-w-0 space-y-10 lg:space-y-14" id="mainContent"></main>
+    </div>
+  </div>
 
-  <script>
-    const sections = [
-      { id:'sec1', label:'Konteks Organisasi', color:'brand', count:10 },
-      { id:'sec2', label:'Pihak Berkepentingan', color:'blue', count:6 },
-      { id:'sec3', label:'Ruang Lingkup SMM', color:'purple', count:5 },
-      { id:'sec4', label:'Proses Bisnis SMM', color:'orange', count:7 },
-      { id:'sec5', label:'Kepemimpinan', color:'rose', count:11 },
-      { id:'sec6', label:'Kebijakan Mutu', color:'cyan', count:5 },
-      { id:'sec7', label:'Struktur Organisasi', color:'amber', count:4 },
-      { id:'sec8', label:'Pengelolaan Dokumen', color:'indigo', count:2 },
-      { id:'sec9', label:'Monitoring & Evaluasi', color:'teal', count:5 },
-      { id:'sec10', label:'Audit Internal', color:'pink', count:2 },
-      { id:'sec11', label:'Tinjauan Manajemen', color:'emerald', count:4 },
-    ];
+  <!-- BACK TO TOP -->
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-brand-600 text-white shadow-lg flex items-center justify-center hover:bg-brand-700 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none"><i data-lucide="arrow-up" class="w-5 h-5"></i></button>
 
-    const colorMap = {
-      brand: { bg:'bg-brand-50', text:'text-brand-600' },
-      blue: { bg:'bg-blue-50', text:'text-blue-600' },
-      purple: { bg:'bg-purple-50', text:'text-purple-600' },
-      orange: { bg:'bg-orange-50', text:'text-orange-600' },
-      rose: { bg:'bg-rose-50', text:'text-rose-600' },
-      cyan: { bg:'bg-cyan-50', text:'text-cyan-600' },
-      amber: { bg:'bg-amber-50', text:'text-amber-600' },
-      indigo: { bg:'bg-indigo-50', text:'text-indigo-600' },
-      teal: { bg:'bg-teal-50', text:'text-teal-600' },
-      pink: { bg:'bg-pink-50', text:'text-pink-600' },
-      emerald: { bg:'bg-emerald-50', text:'text-emerald-600' },
-    };
+<script>
+// ====== DATA ======
+const auditData = [
+  {
+    clause: "4", clauseTitle: "Konteks Organisasi", color: "brand", icon: "globe",
+    subs: [
+      { sub: "4.1", title: "Pemahaman Organisasi dan Konteksnya", questions: [
+        { n:1, t:"Apakah Unit Kerja sudah mengidentifikasi isu internal dan eksternal? Jika iya, bagaimana relevansi isu internal dan eksternal dengan tujuan dan arah strategik?", link:"https://docs.google.com/document/d/1SuosmQjFYhMVdBzpGkNMC7pTQUp6hZ0vY9VOYUVVD1c/edit?usp=sharing", ev:["Dokumen analisis SWOT/PESTLE unit kerja PST","Notulen rapat identifikasi isu internal dan eksternal","Matriks keterkaitan isu dengan tujuan strategis (Renstra)"] },
+        { n:2, t:"Apakah identifikasi isu telah mempertimbangkan: Peraturan/kebijakan, Teknologi, Kebutuhan pengguna data, Anggaran, Koordinasi dengan unit kerja lain, SDM, Kondisi pandemi, Sarana dan prasarana pendukung? Dan bagaimana mekanisme identifikasinya?", link:"https://docs.google.com/document/d/1xszoJA7VUMsF4KAdCGHusLDLOjQJpyZATtqMCPXbszc/edit?usp=sharing", ev:["Matriks identifikasi isu per aspek (8 item)","Dokumen analisis per aspek: telaah regulasi, roadmap teknologi, survei kebutuhan pengguna, RKAP, notulen koordinasi, profil SDM, analisis dampak pandemi, inventaris sarana prasarana PST"] },
+        { n:3, t:"Apakah Unit Kerja telah menetapkan isu internal dan eksternal yang paling strategis pada tahun berjalan dan telah mempengaruhi sasaran mutu serta kinerja? Jika iya, bagaimana mekanisme pengelolaan isu tersebut?", link:"https://docs.google.com/document/d/1SMJum0qwoh2JSO8m0TwlV1r5TM6-S1f_pqZ8h1zdmTA/edit?usp=sharing", ev:["Dokumen penetapan isu strategis tahun berjalan","Bukti keterkaitan isu strategis dengan sasaran mutu","Rencana pengelolaan/pemantauan isu strategis"] },
+        { n:4, t:"Apakah Unit Kerja sudah mengidentifikasi isu terkait perubahan iklim (climate change)? Jika iya, bagaimana mekanisme identifikasi tersebut?", link:"https://docs.google.com/document/d/1v6unyMoGoO1Ekq0Drq2eICJSORt4deIcxZNy8fgOHxU/edit?usp=sharing", ev:["Dokumen analisis dampak perubahan iklim terhadap operasional PST","Notulen rapat pembahasan isu perubahan iklim","Rencana adaptasi/mitigasi perubahan iklim"] },
+        { n:5, t:"Apakah Unit Kerja sudah mengidentifikasi isu terkait penerapan AI dan Digitalisasi? Jika iya, bagaimana mekanisme identifikasi tersebut?", link:"https://docs.google.com/document/d/1jW9TASByFRhYbLpHKNq-Y3l8UKRj41douZAEFr3d2X4/edit?usp=sharing", ev:["Roadmap digitalisasi unit kerja PST","Dokumen analisis penerapan AI dalam layanan statistik","Notulen rapat pembahasan digitalisasi"] },
+        { n:6, t:"Apakah Unit Kerja sudah mengidentifikasi isu terkait fluktuasi harga minyak? Jika iya, bagaimana mekanisme identifikasi tersebut?", link:"https://docs.google.com/document/d/1Mn6NP2bgl2AE_cdBXyF2vu8ZX-5jh6LJZdxa8-Cn4u8/edit?usp=sharing", ev:["Dokumen analisis dampak fluktuasi harga minyak terhadap anggaran operasional PST","Laporan realisasi biaya perjalanan/operasional lapangan","Notulen rapat pembahasan efisiensi anggaran"] },
+        { n:7, t:"Apakah Unit Kerja sudah mengidentifikasi isu terkait resiliensi organisasi (krisis manajemen)? Jika iya, bagaimana mekanisme identifikasi tersebut?", link:"https://docs.google.com/document/d/1jsrxeA-hWuTvNz1HtnFBNdg2trUZNEVsbwY-FMjM4Y4/edit?usp=sharing", ev:["Dokumen Business Continuity Plan (BCP) PST","SOP krisis manajemen/unit penanganan krisis","Hasil simulasi/drill krisis dan evaluasinya"] },
+        { n:8, t:"Apakah seluruh isu tersebut telah dipantau? Jika iya, bagaimana mekanisme pemantauannya?", link:"https://docs.google.com/document/d/1DsCfxZFT-42Yiy3vQ1n0qaNcwlUmYiUeLmL2LOQ_bbo/edit?usp=sharing", ev:["Dashboard/registar pemantauan isu berkala","Laporan pemantauan isu internal & eksternal (bulanan/triwulan)","Notulen rapat evaluasi pemantauan isu"] },
+        { n:9, t:"Apakah seluruh isu tersebut telah ditinjau kembali? Jika iya, bagaimana mekanisme peninjauannya?", link:"https://docs.google.com/document/d/1Qk9_telvljFjfF9GfYWIYzkpF7yyQTRSqXx1qgZ9K3Y/edit?usp=sharing", ev:["Notulen rapat peninjauan isu","Dokumen update/revision matriks isu","Bukti penyampaian hasil peninjauan ke pemangku kepentingan"] },
+        { n:10, t:"Apakah hasil identifikasi isu internal dan eksternal telah dijadikan pertimbangan untuk menentukan risiko dan peluang? Jika iya, bagaimana relevansinya?", link:"https://docs.google.com/document/d/1EbavoqEEfMwvAfWLZf9kOaXhf7fhtCx1W3HlPMw9Bp0/edit?usp=sharing", ev:["Register risiko yang merujuk pada isu teridentifikasi","Dokumen RTP (Rencana Tindak Penanganan)","Matriks keterkaitan isu → risiko → peluang"] }
+      ]},
+      { sub: "4.2", title: "Pemahaman Kebutuhan dan Harapan Pihak Berkepentingan", questions: [
+        { n:1, t:"Apakah Unit Kerja sudah mengidentifikasi dan menentukan pihak berkepentingan yang relevan dengan SMM (pengguna layanan, instansi/unit kerja BPS lain, pegawai, dll)? Jika iya, bagaimana mekanisme identifikasi tersebut?", link:"https://docs.google.com/document/d/1ElA4z0nnGnZz6gflvT70P8KP7ppXeM1LAlxPvcEu3DU/edit?usp=sharing", ev:["Matriks pihak berkepentingan PST (stakeholder map)","Dokumen analisis kepentingan & pengaruh stakeholder","Notulen rapat identifikasi stakeholder"] },
+        { n:2, t:"Apakah hasil identifikasi tersebut telah memuat persyaratan pihak berkepentingan dalam SMM? Jika iya, bagaimana mekanisme identifikasi tersebut?", link:"https://docs.google.com/document/d/1SEE4tdc2jn6upA6j75smbRqKZXcgwAeEUuJ9VzroMqM/edit?usp=sharing", ev:["Matriks persyaratan stakeholder per kelompok","Dokumen telaah peraturan yang menjadi persyaratan stakeholder","Hasil wawancara/survei kebutuhan pengguna PST"] },
+        { n:3, t:"Apakah hasil identifikasi tersebut telah digunakan sebagai dasar perencanaan SMM dan penetapan sasaran mutu?", link:"https://docs.google.com/document/d/1lTn_9XVLmdpgpjWfFY4zQ6s6W2qTDKeCLVJMd25jknI/edit?usp=sharing", ev:["Dokumen perencanaan SMM yang merujuk pada kebutuhan stakeholder","Sasaran mutu yang diturunkan dari harapan pengguna","Matriks keterkaitan stakeholder → sasaran mutu"] },
+        { n:4, t:"Apakah kebutuhan dan harapan pengguna tersebut telah dipantau? Jika iya, bagaimana mekanisme pemantauan?", link:"https://docs.google.com/document/d/1R1uN-FBFFIBjOma0Z6JUdTWGvDUlwyhxWCfrkGzmZKE/edit?usp=sharing", ev:["Formulir survei kepuasan pengguna PST","Buku pengaduan/saran pengunjung PST","Laporan hasil survei kepuasan (periode berjalan)"] },
+        { n:5, t:"Apakah kebutuhan dan harapan pengguna tersebut telah ditinjau kembali? Jika iya, bagaimana mekanisme peninjauannya?", link:"https://docs.google.com/document/d/1ksFABls1Olo3-ZkMRRhVxw1Ox_n2NKwlQ3uQkVKxV90/edit?usp=sharing", ev:["Notulen rapat peninjauan kebutuhan pengguna","Dokumen update kebutuhan stakeholder","Perbandingan kebutuhan periode sebelum vs sekarang"] },
+        { n:6, t:"Apakah telah mengidentifikasi pihak berkepentingan paling signifikan, sejauh mana prioritas sumber daya diberikan untuk pemenuhan harapan pada stakeholder tersebut? Jika iya, bagaimana menjaga pihak berkepentingan tersebut?", link:"https://docs.google.com/document/d/1XfvwH8hB8OLpAPPxrKp6p8rsy0FxiJQSIh2gkyCjcdk/edit?usp=sharing", ev:["Dokumen pemeringkatan/prioritas stakeholder","Bukti alokasi sumber daya untuk stakeholder prioritas (misal: peningkatan layanan pengunjung)","Mekanisme komunikasi berkala dengan stakeholder utama"] }
+      ]},
+      { sub: "4.3", title: "Penetapan Ruang Lingkup Sistem Manajemen Mutu", questions: [
+        { n:1, t:"Apakah unit kerja sudah menentukan lingkup SMM yang diterapkan? Jika iya, apa saja lingkup SMM tersebut?", link:"https://docs.google.com/document/d/14uOqMCK_tw1rQBqPQszj7PFShrdVEWfP6ifCReC2b7s/edit?usp=sharing", ev:["Dokumen penetapan ruang lingkup SMM PST","Sertifikat ISO 9001:2015 yang memuat lingkup","Dokumen deskripsi layanan dalam lingkup SMM"] },
+        { n:2, t:"Apakah terdapat kriteria/dasar penetapan lingkup SMM tersebut? Jika iya, sebutkan kriterianya?", link:"https://docs.google.com/document/d/1F8nsJbP9v8EesY2GbGikhT_IdpiWhZuBY7pUthYDoNw/edit?usp=sharing", ev:["Dokumen kriteria penetapan lingkup","Notulen rapat pembahasan kriteria lingkup","Basis argumentasi pemilihan lingkup"] },
+        { n:3, t:"Apakah penetapan ruang lingkup SMM mempertimbangkan isu internal dan eksternal organisasi?", link:"https://docs.google.com/document/d/1OZymWKbj5FoCjBOW_Qtst5bE-CAwkfQUYBkXxZBcvqU/edit?usp=sharing", ev:["Matriks keterkaitan isu (4.1) dengan penetapan lingkup","Dokumen justifikasi lingkup berdasarkan analisis isu"] },
+        { n:4, t:"Apakah penetapan ruang lingkup SMM mempertimbangkan persyaratan pihak berkepentingan yang relevan?", link:"https://docs.google.com/document/d/1jAjnG9I_k4tknwpEVv_abjCvYYwc-MyJntoMRRQoYhA/edit?usp=sharing", ev:["Matriks keterkaitan persyaratan stakeholder (4.2) dengan lingkup SMM","Bukti bahwa lingkup mencakup layanan yang diminta stakeholder utama"] },
+        { n:5, t:"Apakah penetapan ruang lingkup SMM mempertimbangkan produk dan jasa organisasi?", link:"https://docs.google.com/document/d/1_YGpgtM8XRnlVvxrnfsoeVObbUkCJjLdkcQqlG-iO1o/edit?usp=sharing", ev:["Dokumen daftar produk/jasa PST (pelayanan data, konsultasi, publikasi, dll)","Bukti bahwa semua produk/jasa utama masuk dalam lingkup SMM"] }
+      ]},
+      { sub: "4.4", title: "Sistem Manajemen Mutu dan Proses-Prosesnya", questions: [
+        { n:1, t:"Apakah Unit Kerja sudah menetapkan proses bisnis SMM? Jika iya, bagaimana mekanisme penyusunan proses bisnis tersebut?", link:"https://docs.google.com/document/d/1s14RJBnaEvwU8WZZgZVevcEWDFZtAJaduFTTANb2ef4/edit?usp=sharing", ev:["Peta proses bisnis (process map) PST","Notulen rapat penyusunan peta proses","Dokumen proses bisnis yang disahkan"] },
+        { n:2, t:"Apakah dokumen proses bisnis SMM telah mencakup: penetapan masukan dan keluaran; urutan dan interaksi proses?", link:"https://docs.google.com/document/d/1YYeOhQUJDTqtPMVbU_qv4saatzAUfq9cG1d7PwMdTQI/edit?usp=sharing", ev:["Flowchart/setiap proses dengan masukan & keluaran yang jelas","Diagram interaksi antar proses PST","Dokumen turtle diagram per proses utama"] },
+        { n:3, t:"Apakah telah terdapat mekanisme terkait: kriteria dan metode pengukuran kinerja; kebutuhan sumber daya (SDM dan anggaran); penetapan tanggung jawab dan wewenang; pengelolaan risiko dan peluang?", link:"https://docs.google.com/document/d/1HASVMxnRFKLsPvucpgf5ncF1JmUY7-vpQoUgvv-OYiA/edit?usp=sharing", ev:["Matriks proses berisi KPI, SDM, anggaran, penanggung jawab per proses","Dokumen kriteria pengukuran kinerja proses","Bukti integrasi register risiko ke dalam setiap proses"] },
+        { n:4, t:"Apakah Unit kerja telah menyusun mekanisme monitoring dan evaluasi SMM? Jika iya, bagaimana mekanismenya?", link:"https://docs.google.com/document/d/1OctQtq7DBwoUo9bChk8ZQO7Z9eIQbFF23DwcfzJM9CU/edit?usp=sharing", ev:["SOP monitoring & evaluasi SMM PST","Jadwal monev SMM (bulanan/triwulan/tahunan)","Formulir/formats monev SMM"] },
+        { n:5, t:"Apakah Unit Kerja telah menindaklanjuti hasil monev untuk meningkatkan SMM? Jika iya, hal apa saja yang sudah ditindaklanjuti dan bukti pendukungnya?", link:"https://docs.google.com/document/d/1lMcGqjyU_WtDZ-7Lru9SY4G-PW530K9LoIT6WAns1Ms/edit?usp=sharing", ev:["Dokumen RIP (Rencana Induk Perbaikan) pasca-monev","Bukti implementasi tindak lanjut (revisi SOP, pelatihan, perbaikan sarana)","Notulen rapat tindak lanjut monev"] },
+        { n:6, t:"Apakah terdapat informasi terdokumentasi untuk mendukung operasi SMM dan sarana penyimpanannya?", link:"https://docs.google.com/document/d/1ttQz295FH09D7Jd2YQk4IkomtKZg7ZyhLEDUU91y9xM/edit?usp=sharing", ev:["Master list/daftar dokumen terkendali SMM","Bukti penyimpanan fisik (filing cabinet, folder terlabel) dan digital (drive/folder terstruktur)"] },
+        { n:7, t:"Apakah terdapat sistem informasi sebagai sarana penyimpanan?", link:"https://docs.google.com/document/d/1Vzi1QyIXH8Dxkomu8zl95vHvV0ojyJyNnFNjzy3IJ2I/edit?usp=sharing", ev:["Screenshot sistem informasi penyimpanan dokumen (SIPAS/SIMATA/dokumen digital BPS)","Dokumen panduan penggunaan sistem penyimpanan","Bukti akses dan pengelolaan dokumen melalui sistem"] }
+      ]}
+    ]
+  },
+  {
+    clause: "5", clauseTitle: "Kepemimpinan", color: "rose", icon: "crown",
+    subs: [
+      { sub: "5.1", title: "Kepemimpinan dan Komitmen", questions: [
+        { n:1, t:"Apakah telah dapat dipastikan bahwa kebijakan dan sasaran mutu selaras dengan visi, misi, tujuan, dan arah strategis organisasi?", link:"https://docs.google.com/document/d/18tYv6rbd9BX2BDTy1CWcnVnPhLnFp6nLavLIT5iSX64/edit?usp=sharing", ev:["Dokumen kebijakan mutu yang memuat referensi visi/misi","Matriks keselarasan sasaran mutu dengan Renstra","Notulen rapat pembahasan keselarasan"] },
+        { n:2, t:"Apakah telah dapat dipastikan bahwa persyaratan SMM terintegrasi ke dalam proses bisnis organisasi? Jika iya, bagaimana integrasi tersebut?", link:"https://docs.google.com/document/d/1kI83v_cQnB72IArR6cfnHOJJa7k9cZKd3vxeQMz0y94/edit?usp=sharing", ev:["Matriks integrasi klausul ISO 9001 ke dalam proses bisnis PST","Dokumen proses yang memuat persyaratan SMM","Bukti bahwa SOP mencakup persyaratan standar"] },
+        { n:3, t:"Apakah telah dapat dipastikan ketersediaan sumber daya yang memadai untuk penerapan dan pemeliharaan SMM?", link:"https://docs.google.com/document/d/1VzKSAKfbKYeNr7Cu-h0ShPgwrFtbNXwIjp3Jb7n-u2M/edit?usp=sharing", ev:["RKAP yang memuat anggaran SMM","Dokumen alokasi SDM untuk fungsi mutu","Inventaris sarana prasarana pendukung SMM (komputer, scanner, dll)"] },
+        { n:4, t:"Apakah telah dapat dipastikan bahwa SDM didorong untuk menerapkan pendekatan proses dan pemikiran berbasis risiko (membangun budaya sadar risiko)?", link:"https://docs.google.com/document/d/1rPQ3_rPZd-PUmd2l4MAyBBS3jfLHTDhnSgeW-NUUzBE/edit?usp=sharing", ev:["Materi pelatihan pendekatan proses & berbasis risiko","Daftar hadir pelatihan/sosialisasi budaya sadar risiko","Foto dokumentasi kegiatan pelatihan","Bukti penerapan di pekerjaan sehari-hari (contoh: risk assessment sebelum kegiatan)"] },
+        { n:5, t:"Apakah telah dapat dipastikan bahwa penerapan SMM yang efektif dan sesuai persyaratan telah aktif dikomunikasikan kepada seluruh SDM?", link:"https://docs.google.com/document/d/17F4kdooC66V0jfnYkX88G_-3gQyRsyKECh6faBXfHjw/edit?usp=sharing", ev:["Notulen rapat sosialisasi SMM","Screenshot pengumuman via email/grup/portal internal","Bukti disseminasi (brosur, poster, infografis SMM)"] },
+        { n:6, t:"Apakah telah dapat dipastikan bahwa SMM mampu mencapai hasil yang telah ditetapkan? Jika iya, bagaimana strategi yang diterapkan?", link:"https://docs.google.com/document/d/1mjyUgS9v2FpfdTfu_4NCjkjLvwHdlPvi3_2FqZGG364/edit?usp=sharing", ev:["Dashboard indikator kinerja SMM","Laporan pencapaian sasaran mutu","Dokumen strategi pencapaian hasil (rencana aksi)"] },
+        { n:7, t:"Apakah telah dapat dipastikan bahwa terdapat pengarahan dan dukungan SDM agar berkontribusi terhadap efektivitas SMM?", link:"https://docs.google.com/document/d/1bIWcsC9esg7WsMmBNLaAmPFPrVnYRrqSxE9NTRthPK4/edit?usp=sharing", ev:["Arahan tertulis pimpinan tentang kontribusi SMM","Notulen rapat arahan pimpinan ke staf","Bukti partisipasi staf dalam kegiatan SMM (daftar hadir, tugas)"] },
+        { n:8, t:"Apakah telah terdapat dukungan manajemen terkait (koordinator dan unit pendukung) dalam menjalankan peran kepemimpinan sesuai tanggung jawabnya?", link:"https://docs.google.com/document/d/11sSkIfDdR639pV9meGRQXnl6uW5Mk-jbI8snRgJhfAs/edit?usp=sharing", ev:["SK penunjukan koordinator SMM","Notulen rapat koordinasi dengan unit pendukung","Bukti dukungan nyata dari unit pendukung (IT, keuangan, SDM)"] },
+        { n:9, t:"Apakah pernyataan komitmen telah mencakup upaya pemenuhan kebutuhan dan harapan pengguna sesuai dengan peraturan perundang-undangan yang berlaku?", link:"https://docs.google.com/document/d/1-FizdKKWfLyZOdInKM1vanO_XbbkFMVKTc43x8yGUWA/edit?usp=sharing", ev:["Dokumen pernyataan komitmen/maklumat pelayanan","Daftar peraturan perundang-undangan yang dipatuhi","Bukti kepatuhan terhadap regulasi (izin, laporan ke regulator)"] },
+        { n:10, t:"Apakah pernyataan komitmen telah mencakup penetapan serta pengelolaan risiko dan peluang terkait kebutuhan dan harapan pengguna layanan?", link:"https://docs.google.com/document/d/1TKD_beqfvEI91_O2Bac1fos6ycIzXB69G21bOF0z5hs/edit?usp=sharing", ev:["Dokumen pernyataan komitmen yang memuat risiko & peluang","Register risiko terkait layanan pengguna","Dokumen RTP untuk risiko layanan pengguna"] },
+        { n:11, t:"Apakah pernyataan komitmen telah mencakup komitmen untuk meningkatkan kepuasan pengguna layanan secara berkelanjutan?", link:"https://docs.google.com/document/d/1QkZACzeReBxP3kZHXRQtZHXkP6WeZ1Bu1jUmf_x8ATQ/edit?usp=sharing", ev:["Dokumen pernyataan komitmen peningkatan kepuasan","Program peningkatan kepuasan pengguna PST (berkelanjutan)","Tren hasil survei kepuasan dari waktu ke waktu"] }
+      ]},
+      { sub: "5.2", title: "Kebijakan Mutu", questions: [
+        { n:1, t:"Apakah telah terdapat penetapan kebijakan mutu? Jika iya, dalam bentuk apa kebijakan mutu disusun (maklumat pelayanan)?", link:"https://docs.google.com/document/d/1GG51jWSKhTwP5uwWprxorWMmiVBEn6xyVha0xIxx_QA/edit?usp=sharing", ev:["Dokumen kebijakan mutu/maklumat pelayanan PST yang ditandatangani pimpinan","Bukti pengesahan dokumen kebijakan mutu"] },
+        { n:2, t:"Apakah kebijakan mutu telah: selaras dengan visi/misi/tujuan; menyediakan kerangka kerja sasaran mutu; mendorong komitmen pihak terkait; meningkatkan SMM secara berkala?", link:"https://docs.google.com/document/d/1fLAaBIE2K69iMJufWmLYSzhGtiaYrB8vmIxHN1jISBo/edit?usp=sharing", ev:["Dokumen analisis kesesuaian kebijakan mutu terhadap 4 kriteria","Bukti reviu kebijakan mutu secara berkala","Notulen rapat reviu kebijakan mutu"] },
+        { n:3, t:"Apakah kebijakan mutu telah didokumentasikan? Jika iya, apa bentuk dan media yang digunakan?", link:"https://docs.google.com/document/d/1jAXj0bjdQ0ysmkTEKWKmAW3DvK40VLI27ft8zujS80M/edit?usp=sharing", ev:["Bukti dokumentasi fisik (cetak, bingkai) dan digital (PDF di portal)","SK pengesahan dokumen kebijakan mutu"] },
+        { n:4, t:"Apakah kebijakan mutu dikomunikasikan kepada pihak internal yang berkepentingan?", link:"https://docs.google.com/document/d/1c69kpBfWGyAm56lvR-k2RrEJv3nw-OEcGN6m8v8mQ_s/edit?usp=sharing", ev:["Foto papan umum/maklumat pelayanan di ruang PST","Daftar hadir sosialisasi kebijakan mutu ke pegawai","Screenshot penempatan di portal intranet"] },
+        { n:5, t:"Apakah kebijakan mutu dikomunikasikan kepada pihak eksternal yang berkepentingan?", link:"https://docs.google.com/document/d/1Oty3SMxkCv4RwQyDSQpRSX-N3__W-c7_gW029P5wktE/edit?usp=sharing", ev:["Maklumat pelayanan yang terpasang di lokasi PST (foto)","Bukti kebijakan mutu di website BPS","Brosur/leaflet layanan PST yang memuat kebijakan mutu"] }
+      ]},
+      { sub: "5.3", title: "Peran Organisasi, Tanggung Jawab dan Wewenang", questions: [
+        { n:1, t:"Apakah terdapat struktur organisasi dalam penerapan SMM? Jika iya, bagaimana struktur organisasinya?", link:"https://docs.google.com/document/d/1SUe-Zlv2BvPJoHC52DdMwf-WCVhMClcsGhfxt2gl76k/edit?usp=sharing", ev:["Bagan organisasi SMM PST","SK pembentukan struktur organisasi SMM"] },
+        { n:2, t:"Apakah telah terdapat penetapan pegawai dalam penerapan SMM dan mendelegasikan peran tanggung jawab, dan wewenang? Jika iya, bagaimana mekanisme komunikasinya?", link:"https://docs.google.com/document/d/1tKw0Fd4rABTRPGuuf8og5gMhLHqSexbY3wSVgIckdvc/edit?usp=sharing", ev:["SK penunjukan peran SMM (MR, ketua tim, anggota)","Matriks RACI (Responsible-Accountable-Consulted-Informed)","Notulen sosialisasi peran & tanggung jawab"] },
+        { n:3, t:"Apakah terdapat mekanisme pemilihan pegawai tersebut? Jika iya, bagaimana mekanisme pemilihannya?", link:"https://docs.google.com/document/d/1krCjXjOBJR02yXEOZUhvremWbv2vRH9TDFnCJCXWPZ0/edit?usp=sharing", ev:["Dokumen kriteria pemilihan pegawai untuk peran SMM","Notulen rapat pemilihan","Bukti pertimbangan kompetensi dalam pemilihan"] },
+        { n:4, t:"Apakah dokumen penetapan telah memuat peran, tanggung jawab, dan wewenang: memastikan SMM memenuhi ISO 9001:2015; memastikan keluaran sesuai target; melaporkan & mengevaluasi kinerja; menindaklanjuti hasil evaluasi; memastikan promosi perubahan fokus pada pengguna layanan; memastikan keutuhan SMM saat perubahan?", link:"https://docs.google.com/document/d/1XSFKMRnFxYyTW6AzgXlLayNbb3SBPURwiZyRPvqCZpg/edit?usp=sharing", ev:["SK/Matriks TRW yang memuat 6 butir peran secara eksplisit","Laporan kinerja MR/tim SMM","Bukti pelaksanaan masing-masing peran (notulen, laporan, tindak lanjut)"] }
+      ]}
+    ]
+  },
+  {
+    clause: "7", clauseTitle: "Dukungan — Informasi Terdokumentasi", color: "indigo", icon: "file-text",
+    subs: [
+      { sub: "7.5", title: "Informasi Terdokumentasi", questions: [
+        { n:1, t:"Apakah terdapat pedoman/prosedur mengenai pengelolaan informasi/dokumen yang sudah disahkan? Apakah mencakup identifikasi dan deskripsi, format, serta tinjauan dan pengesahan?", link:"https://docs.google.com/document/d/1NNBwf6UO_NNjIM12txMs9mqB8aG8sMH3_CoEoK0e7Go/edit?usp=sharing", ev:["SOP Pengendalian Dokumen dan Rekaman SMM PST","SK pengesahan SOP","Contoh dokumen yang memuat identifikasi, format, dan tanda pengesahan"] },
+        { n:2, t:"Apakah pedoman/prosedur telah mengatur: cara penyimpanan; langkah pengamanan; proses akses; masa retensi; langkah setelah masa retensi; kontrol perubahan; distribusi/akses (termasuk pengunjung PST); lokasi penyimpanan terkait pengamanan; kemudahan akses bagi pihak berwenang?", link:"https://docs.google.com/document/d/1xRTA1h1tn0gnA-FLFRfyGtH_0FDen-gRJMaWp2SUUgI/edit?usp=sharing", ev:["SOP Pengendalian Dokumen yang memuat semua 9 ketentuan","Bukti penerapan: foto lokasi penyimpanan aman, daftar retensi dokumen, log akses dokumen, contoh form distribusi","Prosedur akses dokumen bagi pengunjung PST","Bukti pemusnahan dokumen yang已达 masa retensi sesuai prosedur"] }
+      ]}
+    ]
+  },
+  {
+    clause: "9", clauseTitle: "Evaluasi Kinerja", color: "teal", icon: "bar-chart-3",
+    subs: [
+      { sub: "9.1", title: "Pemantauan, Pengukuran, Analisis dan Evaluasi", questions: [
+        { n:1, t:"Apakah telah dilakukan pemantauan, pengukuran, analisis, dan evaluasi layanan terhadap pencapaian SMM? Jika Ya, bagaimana metodenya dan kapan waktu pelaksanaannya?", link:"https://docs.google.com/document/d/1aj1iXOKLZbGqsWU-B44C4ZFRYDg6yx9xMJyZrgKwpMU/edit?usp=sharing", ev:["SOP monev SMM PST","Jadwal monev (bulanan/triwulan/tahunan)","Laporan monev SMM periode berjalan"] },
+        { n:2, t:"Apakah hasil evaluasi telah menjadi bahan perbaikan untuk: kesesuaian persyaratan; tingkat kepuasan pelanggan; kinerja & keefektifan SMM; efektifitas perencanaan; efektifitas tindakan risiko & peluang; keperluan peningkatan SMM?", link:"https://docs.google.com/document/d/1BPnnouL-M06274HWDeI3P-CQ01Ub7Gz33mxVfy18HkQ/edit?usp=sharing", ev:["Laporan evaluasi yang memuat analisis 6 aspek","RIP yang diturunkan dari hasil evaluasi","Bukti perbaikan berdasarkan masing-masing aspek evaluasi"] },
+        { n:3, t:"Apakah proses pemantauan, pengukuran, analisis dan evaluasi telah didokumentasikan?", link:"https://docs.google.com/document/d/10ZdXS2oK8MszQgiEk_4ZTINgMQDUscd6P3gHI_vNcWk/edit?usp=sharing", ev:["Formulir/formats monev yang terisi","Laporan monev yang didokumentasikan dan disahkan","Bukti penyimpanan dokumen monev"] },
+        { n:4, t:"Apakah tindak lanjut hasil evaluasi yang telah dilakukan dan didokumentasikan?", link:"https://docs.google.com/document/d/1ZmOP8ho15GKxCMNfXLVWmj1XbPubbelRG-E-TctY-HY/edit?usp=sharing", ev:["Daftar tindak lanjut evaluasi dengan status","Bukti implementasi tindak lanjut","Laporan verifikasi efektifitas tindak lanjut"] },
+        { n:5, t:"Apakah laporan hasil monitoring disampaikan kepada pimpinan secara berkala?", link:"https://docs.google.com/document/d/17c8ZDffnnWIajyRrS3sAUtVRfTuXuTXbdNuh1_f0D-0/edit?usp=sharing", ev:["Notulen rapat penyampaian laporan ke pimpinan","Tanda terima/disposisi laporan dari pimpinan","Bukti jadwal penyampaian berkala"] }
+      ]},
+      { sub: "9.2", title: "Audit Internal", questions: [
+        { n:1, t:"Apakah pimpinan telah menetapkan mekanisme audit internal dan mengevaluasi pelaksanaan audit internal?", link:"https://docs.google.com/document/d/1VcJ-sGobGqbkRajYzvW0oEiyvJ9FOAFSYQCeki3LNpQ/edit?usp=sharing", ev:["SOP Audit Internal SMM","Jadwal/program audit internal tahunan","SK penunjukan auditor internal"] },
+        { n:2, t:"Apakah audit internal telah dilaksanakan secara terencana, oleh auditor yang kompeten dan independen, didokumentasikan dengan baik, serta ditindaklanjuti secara efektif untuk perbaikan layanan?", link:"https://docs.google.com/document/d/1UrQZEw0hQS0o5Awacddiiy8r47155-Gbo3M-cWs-WT8/edit?usp=sharing", ev:["Ceklist/lembar kerja audit","Laporan Hasil Audit (LHA)","Bukti kompetensi auditor (sertifikat pelatihan)","Bukti independensi auditor","Daftar temuan dan tindak lanjut","Bukti penutupan temuan (evidence of closure)"] }
+      ]},
+      { sub: "9.3", title: "Tinjauan Manajemen", questions: [
+        { n:1, t:"Apakah pimpinan telah melakukan peninjauan SMM Organisasi melalui Tinjauan Manajemen secara berkala?", link:"https://docs.google.com/document/d/1pYdAyfBb_eq-zrXMBoQhL5_b_rda1JHGB54R7VaDVDY/edit?usp=sharing", ev:["Jadwal Tinjauan Manajemen (minimal setahun sekali)","Notulen Tinjauan Manajemen","Daftar hadir peserta TM"] },
+        { n:2, t:"Apakah tinjauan manajemen telah mempertimbangkan: status tindakan TM terdahulu; perubahan isu internal & eksternal; informasi kinerja & keefektifan SMM; kecukupan sumber daya; keefektifan RTP; peluang peningkatan?", link:"https://docs.google.com/document/d/1zxdd1wlIY1BV_9AtGKHDqSvtUFgPdxxqLuI9TUPohnI/edit?usp=sharing", ev:["Notulen TM dengan agenda lengkap 6 item","Dokumen pendukung TM: laporan status tindakan, update isu, laporan kinerja, laporan RTP","Bukti pembahasan setiap agenda"] },
+        { n:3, t:"Apakah tinjauan manajemen telah meliputi keputusan dan tindakan terkait peluang peningkatan, keperluan perubahan, kebutuhan sumber daya?", link:"https://docs.google.com/document/d/1yb12rkktufIgecV5tvI5KWZWB9jRNyeijgQhC6mkPi0/edit?usp=sharing", ev:["Notulen TM yang memuat keputusan & tindakan","RIP yang diturunkan dari keputusan TM","Bukti alokasi sumber daya berdasarkan keputusan TM"] },
+        { n:4, t:"Apakah terdapat dokumentasi rapat tinjauan manajemen?", link:"https://docs.google.com/document/d/1n0qdFN1KD1ldZE3BiefReCNbc1OZRMZIXAsl8PLxCf4/edit?usp=sharing", ev:["Notulen TM yang ditandatangani pimpinan dan peserta","Daftar hadir yang ditandatangani","Lampiran dokumen pendukung yang dibahas dalam TM"] }
+      ]}
+    ]
+  }
+];
 
-    // Build desktop sidebar
-    const desktopNav = document.getElementById('desktopNav');
-    sections.forEach(s => {
+const colorMap = {
+  brand:{bg:'bg-green-50',text:'text-green-600',badge:'bg-green-100 text-green-700',ring:'ring-green-200'},
+  rose:{bg:'bg-rose-50',text:'text-rose-600',badge:'bg-rose-100 text-rose-700',ring:'ring-rose-200'},
+  indigo:{bg:'bg-indigo-50',text:'text-indigo-600',badge:'bg-indigo-100 text-indigo-700',ring:'ring-indigo-200'},
+  teal:{bg:'bg-teal-50',text:'text-teal-600',badge:'bg-teal-100 text-teal-700',ring:'ring-teal-200'}
+};
+
+// ====== RENDER ======
+function renderAll(){
+  const main = document.getElementById('mainContent');
+  main.innerHTML = '';
+  let globalQ = 0;
+  auditData.forEach((clause,ci) => {
+    const c = colorMap[clause.color];
+    clause.subs.forEach((sub,si) => {
+      const secId = `sec${ci}_${si}`;
+      const qCount = sub.questions.length;
+      globalQ += qCount;
+
+      const section = document.createElement('section');
+      section.id = secId;
+      section.className = 'scroll-mt-36 clause-section';
+      section.dataset.clause = clause.clause;
+      section.dataset.sub = sub.sub;
+      section.dataset.title = `${clause.clauseTitle} — ${sub.title}`;
+
+      let questionsHTML = '';
+      sub.questions.forEach((q,qi) => {
+        const qId = `q_${ci}_${si}_${qi}`;
+        let evidenceHTML = '';
+        if(q.ev && q.ev.length){
+          const items = q.ev.map(e => `<li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-500 flex-shrink-0 mt-0.5"></i><span>${e}</span></li>`).join('');
+          evidenceHTML = `
+            <div class="mt-3 border-t border-neutral-100 pt-3">
+              <button class="evidence-toggle flex items-center gap-2 text-xs font-semibold text-neutral-500 hover:text-brand-600 transition" onclick="toggleEvidence('${qId}_ev')">
+                <i data-lucide="chevron-down" class="w-3.5 h-3.5 evidence-chevron" id="${qId}_ev_chev"></i>
+                <i data-lucide="folder-open" class="w-3.5 h-3.5"></i>
+                Contoh Bukti Dukung SMM PST (${q.ev.length} item)
+              </button>
+              <div class="evidence-body" id="${qId}_ev">
+                <ul class="mt-2.5 ml-1 space-y-2 text-sm text-neutral-600 leading-relaxed">${items}</ul>
+              </div>
+            </div>`;
+        }
+
+        questionsHTML += `
+          <div class="q-card bg-white rounded-2xl border border-neutral-200/80 p-5 question-card" data-search="${stripHtml(q.t)} ${sub.sub} ${sub.title} ${clause.clauseTitle} klausul ${clause.clause} ${q.ev ? q.ev.join(' ') : ''}">
+            <div class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-7 h-7 rounded-full ${c.bg} ${c.text} text-xs font-bold flex items-center justify-center mt-0.5">${q.n}</span>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm text-neutral-800 leading-relaxed mb-3 question-text">${q.t}</p>
+                <a href="${q.link}" target="_blank" rel="noopener noreferrer" class="link-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 shadow-sm">
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Buka Dokumen Jawaban
+                </a>
+                ${evidenceHTML}
+              </div>
+            </div>
+          </div>`;
+      });
+
+      section.innerHTML = `
+        <div class="relative pl-5 mb-6" style="padding-left:20px">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px;background:${clause.color==='brand'?'#16a34a':clause.color==='rose'?'#e11d48':clause.color==='indigo'?'#4f46e5':'#0d9488'}"></div>
+          <div class="flex flex-wrap items-center gap-2 mb-1">
+            <span class="clause-badge inline-flex items-center px-2 py-0.5 rounded-md ${c.badge} font-bold">KLAUSUL ${sub.sub}</span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-neutral-100 text-neutral-500 text-[10px] font-bold">${clause.clause} — ${clause.clauseTitle}</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">${sub.title}</h3>
+          <p class="text-sm text-neutral-500 mt-0.5">${qCount} Pertanyaan</p>
+        </div>
+        <div class="space-y-3 clause-questions">${questionsHTML}</div>`;
+
+      main.appendChild(section);
+    });
+  });
+  lucide.createIcons();
+}
+
+function stripHtml(html){ const d=document.createElement('div'); d.innerHTML=html; return d.textContent.replace(/\s+/g,' ').toLowerCase(); }
+
+// ====== EVIDENCE TOGGLE ======
+function toggleEvidence(id){
+  const body = document.getElementById(id);
+  const chev = document.getElementById(id+'_chev');
+  body.classList.toggle('open');
+  chev.classList.toggle('rotated');
+}
+
+// ====== NAVIGATION ======
+function buildNav(){
+  const desktop = document.getElementById('desktopNav');
+  const mobileLinks = document.getElementById('mobileNavLinks');
+  const mobilePills = document.getElementById('mobilePills');
+  let idx = 0;
+  auditData.forEach((clause,ci) => {
+    const c = colorMap[clause.color];
+    clause.subs.forEach((sub,si) => {
+      const secId = `sec${ci}_${si}`;
+      const label = `${sub.sub} ${sub.title}`;
+      const shortLabel = sub.sub;
+      idx++;
+
+      // Desktop
       const a = document.createElement('a');
-      a.href = '#' + s.id;
-      a.dataset.sec = s.id;
+      a.href = '#'+secId; a.dataset.sec = secId;
       a.className = 'sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-neutral-600 transition-all duration-200 cursor-pointer';
-      a.innerHTML = `<span class="flex-shrink-0 w-6 h-6 rounded-md ${colorMap[s.color].bg} ${colorMap[s.color].text} flex items-center justify-center text-[10px] font-bold">${s.id.replace('sec','')}</span><span class="truncate flex-1">${s.label}</span><span class="flex-shrink-0 text-[10px] font-bold ${colorMap[s.color].text} opacity-60">${s.count}</span>`;
-      a.addEventListener('click', e => { e.preventDefault(); document.getElementById(s.id).scrollIntoView({ behavior:'smooth' }); });
-      desktopNav.appendChild(a);
+      a.innerHTML = `<span class="flex-shrink-0 w-6 h-6 rounded-md ${c.bg} ${c.text} flex items-center justify-center text-[10px] font-bold">${sub.sub.replace('.','')}</span><span class="truncate flex-1">${label}</span><span class="flex-shrink-0 text-[10px] font-bold ${c.text} opacity-60">${sub.questions.length}</span>`;
+      a.addEventListener('click', e => { e.preventDefault(); document.getElementById(secId).scrollIntoView({behavior:'smooth'}); });
+      desktop.appendChild(a);
+
+      // Mobile sidebar
+      const b = a.cloneNode(true);
+      b.querySelector('.truncate').textContent = label;
+      b.addEventListener('click', e => { e.preventDefault(); closeMobileMenu(); setTimeout(() => document.getElementById(secId).scrollIntoView({behavior:'smooth'}), 200); });
+      mobileLinks.appendChild(b);
+
+      // Mobile pills
+      const p = document.createElement('a');
+      p.href = '#'+secId; p.dataset.sec = secId;
+      p.className = 'nav-pill flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-600 border border-neutral-200 whitespace-nowrap';
+      p.textContent = shortLabel;
+      mobilePills.appendChild(p);
     });
+  });
+}
 
-    // Build mobile sidebar
-    const mobileNavLinks = document.getElementById('mobileNavLinks');
-    sections.forEach(s => {
-      const a = document.createElement('a');
-      a.href = '#' + s.id;
-      a.dataset.sec = s.id;
-      a.className = 'sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-neutral-600 transition-all duration-200 cursor-pointer';
-      a.innerHTML = `<span class="flex-shrink-0 w-6 h-6 rounded-md ${colorMap[s.color].bg} ${colorMap[s.color].text} flex items-center justify-center text-[10px] font-bold">${s.id.replace('sec','')}</span><span class="flex-1">${s.label}</span><span class="text-[10px] font-bold ${colorMap[s.color].text} opacity-60">${s.count} soal</span>`;
-      a.addEventListener('click', e => { e.preventDefault(); closeMobileMenu(); setTimeout(() => document.getElementById(s.id).scrollIntoView({ behavior:'smooth' }), 200); });
-      mobileNavLinks.appendChild(a);
+// ====== MOBILE MENU ======
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('mobileOverlay').classList.remove('hidden');
+  document.getElementById('mobileSidebar').style.transform = 'translateX(0)';
+});
+function closeMobileMenu(){
+  document.getElementById('mobileOverlay').classList.add('hidden');
+  document.getElementById('mobileSidebar').style.transform = 'translateX(100%)';
+}
+
+// ====== SCROLL SPY ======
+function updateActive(){
+  const sy = window.scrollY;
+  let cur = '';
+  document.querySelectorAll('.clause-section').forEach(s => { if(s.offsetTop - 140 <= sy) cur = s.id; });
+  document.querySelectorAll('#desktopNav .sidebar-link, #mobileNavLinks .sidebar-link').forEach(a => {
+    const active = a.dataset.sec === cur;
+    a.style.background = active ? '#16a34a' : '';
+    a.style.color = active ? '#fff' : '';
+  });
+  document.querySelectorAll('.nav-pill').forEach(p => p.classList.toggle('active', p.dataset.sec === cur));
+  const btn = document.getElementById('backToTop');
+  if(sy > 600){ btn.style.opacity='1'; btn.style.transform='translateY(0)'; btn.style.pointerEvents='auto'; }
+  else { btn.style.opacity='0'; btn.style.transform='translateY(1rem)'; btn.style.pointerEvents='none'; }
+}
+window.addEventListener('scroll', updateActive, {passive:true});
+
+// ====== SEARCH ======
+const searchInput = document.getElementById('searchInput');
+const searchCount = document.getElementById('searchCount');
+const searchClear = document.getElementById('searchClear');
+
+searchInput.addEventListener('input', function(){
+  const q = this.value.trim().toLowerCase();
+  searchClear.classList.toggle('hidden', !q);
+  searchCount.classList.toggle('hidden', !q);
+
+  if(!q){
+    document.querySelectorAll('.clause-section').forEach(s => s.classList.remove('hidden-by-search'));
+    document.querySelectorAll('.question-card').forEach(c => { c.classList.remove('hidden-by-search'); c.querySelector('.question-text').innerHTML = c.dataset.origText || c.querySelector('.question-text').innerHTML; });
+    searchCount.textContent = '';
+    return;
+  }
+
+  let total = 0;
+  document.querySelectorAll('.clause-section').forEach(sec => {
+    const cards = sec.querySelectorAll('.question-card');
+    let secVisible = 0;
+    cards.forEach(card => {
+      const text = card.dataset.search;
+      if(text.includes(q)){
+        card.classList.remove('hidden-by-search');
+        secVisible++;
+        total++;
+        // Highlight
+        const pEl = card.querySelector('.question-text');
+        if(!card.dataset.origText) card.dataset.origText = pEl.innerHTML;
+        const orig = card.dataset.origText;
+        const origPlain = stripHtml(orig);
+        const regex = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+        let highlighted = origPlain.replace(regex, '<span class="search-highlight">$1</span>');
+        pEl.innerHTML = highlighted;
+      } else {
+        card.classList.add('hidden-by-search');
+        const pEl = card.querySelector('.question-text');
+        if(card.dataset.origText) pEl.innerHTML = card.dataset.origText;
+      }
     });
+    sec.classList.toggle('hidden-by-search', secVisible === 0);
+  });
 
-    // Mobile menu
-    document.getElementById('menuToggle').addEventListener('click', () => {
-      document.getElementById('mobileOverlay').classList.remove('hidden');
-      document.getElementById('mobileSidebar').style.transform = 'translateX(0)';
-    });
-    function closeMobileMenu() {
-      document.getElementById('mobileOverlay').classList.add('hidden');
-      document.getElementById('mobileSidebar').style.transform = 'translateX(100%)';
-    }
+  searchCount.textContent = total + ' ditemukan';
+});
 
-    // Scroll spy + back to top
-    function updateActiveSection() {
-      const scrollY = window.scrollY;
-      let current = sections[0].id;
-      sections.forEach(s => { const el = document.getElementById(s.id); if (el && el.offsetTop - 120 <= scrollY) current = s.id; });
+function clearSearch(){
+  searchInput.value = '';
+  searchInput.dispatchEvent(new Event('input'));
+  searchInput.focus();
+}
 
-      document.querySelectorAll('#desktopNav .sidebar-link').forEach(a => {
-        const isActive = a.dataset.sec === current;
-        a.style.background = isActive ? '#16a34a' : '';
-        a.style.color = isActive ? '#fff' : '';
-      });
-      document.querySelectorAll('#mobileNavLinks .sidebar-link').forEach(a => {
-        const isActive = a.dataset.sec === current;
-        a.style.background = isActive ? '#16a34a' : '';
-        a.style.color = isActive ? '#fff' : '';
-      });
-      document.querySelectorAll('.nav-pill').forEach(p => {
-        p.classList.toggle('active', p.dataset.sec === current);
-      });
-
-      const btn = document.getElementById('backToTop');
-      if (scrollY > 600) { btn.style.opacity='1'; btn.style.transform='translateY(0)'; btn.style.pointerEvents='auto'; }
-      else { btn.style.opacity='0'; btn.style.transform='translateY(1rem)'; btn.style.pointerEvents='none'; }
-    }
-    window.addEventListener('scroll', updateActiveSection, { passive:true });
-    updateActiveSection();
-
-    lucide.createIcons();
-  </script>
+// ====== INIT ======
+renderAll();
+buildNav();
+updateActive();
+</script>
 </body>
 </html>
